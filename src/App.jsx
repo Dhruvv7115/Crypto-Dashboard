@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Star, TrendingUp, TrendingDown, DollarSign, Search, Filter, ChevronDown } from 'lucide-react';
+import { Star, TrendingUp, TrendingDown, DollarSign, Search, Filter, ChevronDown, X } from 'lucide-react';
 
 const CryptoDashboard = () => {
   const [coins, setCoins] = useState([]);
@@ -244,7 +244,7 @@ const CryptoDashboard = () => {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {coins.filter(coin => favourites.includes(coin.id)).map(coin => (
-                <div key={coin.id} className="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                <div key={coin.id} className="bg-gray-800 p-4 rounded-lg border border-gray-700 cursor-pointer" onClick={() => handleCoinClick(coin)}>
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center">
                       <img src={coin.image} alt={coin.name} className="w-8 h-8 mr-3" />
@@ -254,8 +254,11 @@ const CryptoDashboard = () => {
                       </div>
                     </div>
                     <button
-                      onClick={() => togglefavourite(coin.id)}
-                      className="text-yellow-400 hover:text-yellow-300"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        togglefavourite(coin.id)
+                      }}
+                      className="text-yellow-400 hover:text-yellow-300 "
                     >
                       <Star className="h-5 w-5 fill-current" />
                     </button>
@@ -372,7 +375,7 @@ const CryptoDashboard = () => {
           </div>
         </div>
 
-        {/* Detailed Chart Modal */}
+        {/* Detailed Chart Model */}
         {selectedCoin && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
             <div className="bg-gray-800 rounded-lg p-6 max-w-4xl w-full max-h-[80vh] overflow-y-auto">
@@ -388,7 +391,7 @@ const CryptoDashboard = () => {
                   onClick={() => setSelectedCoin(null)}
                   className="text-gray-400 hover:text-white text-xl"
                 >
-                  ×
+                  <X className="font-extrabold"/>
                 </button>
               </div>
 
@@ -436,8 +439,8 @@ const CryptoDashboard = () => {
                           type="monotone" 
                           dataKey="price" 
                           stroke="#3B82F6" 
-                          strokeWidth={2}
-                          dot={{ fill: '#3B82F6', strokeWidth: 2, r: 4 }}
+                          strokeWidth={5}
+                          dot={{ fill: '#3B82F6', strokeWidth: 1, r: 1 }}
                         />
                       </LineChart>
                     </ResponsiveContainer>
