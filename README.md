@@ -87,3 +87,7 @@ All data is fetched from the CoinGecko API. No API key required for public endpo
 - 🔒 Backend auth + saved preferences
 
 - Add ☀️Light/🌙Dark Mode toggle
+
+## Live Link
+
+#### **https://crypto-dashboard-vert-delta.vercel.app/**
